@@ -78,9 +78,6 @@ void createUnit(MilitarySystem& militarySystem) {
 
 void transferSoldier(MilitarySystem& militarySystem) {
     militarySystem.printAllUnits();
-    if (militarySystem.getBase().getUnitCount() == 0) {
-        return;
-    }
     int personalNumber, newUnitId;
 
     cout << "Soldier personal number: ";
@@ -141,7 +138,7 @@ void addWarehouse(MilitarySystem& militarySystem) {
 }
 
 void addEquipment(MilitarySystem& militarySystem) {
-    militarySystem.printAllWarehouses();
+    militarySystem.getBase().printWarehouses();
 
     if (militarySystem.getBase().getWarehouseCount() == 0) {
         return;
@@ -155,7 +152,7 @@ void addEquipment(MilitarySystem& militarySystem) {
     cout << "Warehouse name: ";
     cin >> warehouseName;
 
-    if (!militarySystem.warehouseExists(warehouseName)) {
+    if (!militarySystem.findWarehouse(warehouseName)) {
         cout << "Warehouse not found." << endl;
         return;
     }
@@ -207,10 +204,6 @@ void createLogisticsMission(MilitarySystem& militarySystem) {
     cin >> name;
 
     militarySystem.printAllUnits();
-    if (militarySystem.getBase().getUnitCount() == 0) {
-        return;
-    }
-
     cout << "Assigned unit ID: ";
     cin >> unitId;
 
@@ -225,7 +218,7 @@ void createLogisticsMission(MilitarySystem& militarySystem) {
     cout << "Assign a vehicle? (y/n): ";
     cin >> answer;
     if (answer == 'y' || answer == 'Y') {
-        militarySystem.printAllVehicles();
+        militarySystem.getBase().printVehicles();
         if (militarySystem.getBase().getVehicleCount() == 0) {
             cout << "No vehicles in the base." << endl;
         } else {
@@ -245,7 +238,7 @@ void createLogisticsMission(MilitarySystem& militarySystem) {
         cin >> answer;
         if (answer != 'y' && answer != 'Y') break;
 
-        militarySystem.printAllWarehouses();
+        militarySystem.getBase().printWarehouses();
         if (militarySystem.getBase().getWarehouseCount() == 0) {
             break;
         }
@@ -255,7 +248,7 @@ void createLogisticsMission(MilitarySystem& militarySystem) {
         cout << "Warehouse name: ";
         cin >> warehouseName;
 
-        if (!militarySystem.warehouseExists(warehouseName)) {
+        if (!militarySystem.findWarehouse(warehouseName)) { 
             cout << "Warehouse not found." << endl;
             continue;
         }
@@ -346,7 +339,7 @@ int main() {
 
         switch (choice) {
             case 1:  addSoldier(militarySystem);                       break;
-            case 2:  addOfficer(militarySystem);                       break;
+            case 2:  addOfficer(militarySystem);                        break;
             case 3:  createUnit(militarySystem);                       break;
             case 4:  transferSoldier(militarySystem);                  break;
             case 5:  addVehicle(militarySystem);                       break;

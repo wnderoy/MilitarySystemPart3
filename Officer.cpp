@@ -5,6 +5,10 @@ using namespace std;
 Officer::Officer(const char* name, const Date& birthDate, const char* role, eRank rank)
 : Soldier(name, birthDate, role, rank),commandedSoldiers(nullptr), commandedCount(0), commandedCapacity(0){};
 
+Officer::~Officer() {
+    delete[] commandedSoldiers;
+}
+
 int Officer::getCommandedCount() const
 {
     return commandedCount;

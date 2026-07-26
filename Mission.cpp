@@ -4,6 +4,8 @@
 #include "Unit.h"
 using namespace std;
 
+int Mission::s_nextMissionId = 1;
+
 Mission::Mission(const char* missionName, Unit *assignedUnit)
 {
     this->missionName = new char[strlen(missionName) + 1];
