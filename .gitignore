@@ -24,3 +24,4 @@ Vehicle.o
 Warehouse.o
 MilitarySystem.o
 MilitarySystem
+.continue/
