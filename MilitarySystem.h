@@ -1,6 +1,12 @@
 #ifndef MILITARY_SYSTEM_H
 #define MILITARY_SYSTEM_H
+/*
+part 3 changes:
 
+soldiers - Soldier** now vector<Soldier*>
+units - Unit** now vector<Unit*>
+missions - Mission** now vector<Mission*> 
+*/
 #include "BaseFacility.h"
 #include "Soldier.h"
 #include "Equipment.h"

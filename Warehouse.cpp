@@ -2,7 +2,13 @@
 #include "Warehouse.h"
 #include "Equipment.h"
 using namespace std;
+/*
+part 3 changes:
+name - char* now string
 
+equipmentList - Equipment** now vector<Equipment*>
+
+*/
 Warehouse::Warehouse(const string& name)
     : name(name)
 {

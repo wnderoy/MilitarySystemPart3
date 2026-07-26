@@ -4,7 +4,7 @@
 #include "Mission.h"
 #include <vector>
 class Equipment;
-
+//part3: requiredEquipment - Equipment** now vector<Equipment*>
 class Vehicle;
 
 class LogisticsMission : public Mission {

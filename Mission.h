@@ -3,6 +3,7 @@
 
 #include <string>
 
+//part 3: missionName - char* now string
 class Unit;
 
 class Mission {

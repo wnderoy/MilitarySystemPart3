@@ -12,7 +12,13 @@ using namespace std;
 #include "Vehicle.h"
 #include "Equipment.h"
 #include "Report.h"
+/*
+part 3 changes:
 
+soldiers - Soldier** now vector<Soldier*>
+units - Unit** now vector<Unit*>
+missions - Mission** now vector<Mission*> 
+*/
 MilitarySystem::MilitarySystem()
 {
 }

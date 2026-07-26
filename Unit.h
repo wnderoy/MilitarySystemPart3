@@ -3,7 +3,11 @@
 
 #include <string>
 #include <vector>
-
+/*
+part 3 changes:
+unitName - char* is now a string
+ soldiers - Soldier** now vector<Soldier*>
+*/
 class Soldier;
 
 class Unit {

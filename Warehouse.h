@@ -3,7 +3,13 @@
 
 #include <string>
 #include <vector>
+/*
+part 3 changes:
+name - char* now string
 
+equipmentList - Equipment** now vector<Equipment*>
+
+*/
 class Equipment;
 
 class Warehouse {

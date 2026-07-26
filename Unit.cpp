@@ -1,7 +1,11 @@
 #include <iostream>
 #include "Unit.h"
 using namespace std;
-
+/*
+part 3 changes:
+unitName - char* is now a string
+ soldiers - Soldier** now vector<Soldier*>
+*/
 int Unit::s_nextUnitId = 1;
 
 Unit::Unit(const string& unitName)

@@ -2,6 +2,7 @@
 #include "Mission.h"
 #include "Unit.h"
 using namespace std;
+//part 3: missionName - char* now string
 
 int Mission::s_nextMissionId = 1;
 

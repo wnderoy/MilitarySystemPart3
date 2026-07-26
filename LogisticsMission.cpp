@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "LogisticsMission.h"
+//part3: requiredEquipment - Equipment** now vector<Equipment*>
 
 LogisticsMission::LogisticsMission(const string& missionName, Unit* assignedUnit)
     : Mission(missionName, assignedUnit), assignedVehicle(nullptr)
