@@ -9,6 +9,7 @@ Warehouse:: Warehouse(const char* name, int capacity) : capacity(capacity),count
     this->name = new char[strlen(name) + 1];
     strcpy(this->name,name);
 
+    this->equipmentList = new Equipment*[capacity];
     for (int i = 0; i < capacity; i++) {
         this->equipmentList[i] = nullptr;
     }
