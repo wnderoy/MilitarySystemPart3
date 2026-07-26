@@ -2,7 +2,13 @@
 #define EQUIPMENT_H
 
 #include <string>
+/*
+part 3
+name - char* now string
+serialNumber - char* now string
 
+
+*/
 class Equipment {
 public:
     enum class eEquipmentStatus {

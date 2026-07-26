@@ -1,7 +1,14 @@
 #include <iostream>
 #include "Jeep.h"
 using namespace std;
+/*
+part 3:
+passengers - Soldier** now vector<Soldier*> 
+passengerCount - deleted because we have vectors
 
+
+
+*/
 Jeep::Jeep(const string &vehicleNumber, int maxPassengers)
     : Vehicle(vehicleNumber), maxPassengers(maxPassengers)
 {

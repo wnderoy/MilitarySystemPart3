@@ -1,6 +1,12 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
+/*
+part 3:
+vehicleNumber - char* now string
 
+
+
+*/
 #include <string>
 
 class Soldier;

@@ -1,7 +1,13 @@
 #include <iostream>
 #include "Equipment.h"
 using namespace std;
+/*
+part 3
+name - char* now string
+serialNumber - char* now string
 
+
+*/
 Equipment::Equipment(const string& name,
               const string& serialNumber,
               int quantity,

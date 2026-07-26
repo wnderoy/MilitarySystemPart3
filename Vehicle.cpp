@@ -1,7 +1,13 @@
 #include <iostream>
 #include "Vehicle.h"
 using namespace std;
+/*
+part 3:
+vehicleNumber - char* now string
 
+
+
+*/
 Vehicle::Vehicle(const string &vehicleNumber)
     : vehicleNumber(vehicleNumber), available(true), needsMaintenance(false), driver(nullptr)
 {

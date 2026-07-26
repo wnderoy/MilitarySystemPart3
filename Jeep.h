@@ -3,7 +3,14 @@
 
 #include "Vehicle.h"
 #include <vector>
+/*
+part 3:
+passengers - Soldier** now vector<Soldier*> 
+passengerCount - deleted because we have vectors
 
+
+
+*/
 class Soldier;
 
 class Jeep : virtual public Vehicle {
