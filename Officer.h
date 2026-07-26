@@ -3,7 +3,13 @@
 
 #include "Soldier.h"
 #include <vector>
+/*
+part 3:
 
+commandedSoldiers - Soldier** now vector<Soldier*> 
+commandedCount - deleted cause now we have vector
+ commandedCapacity - deleted
+*/
 class Officer : public Soldier {
 private:
     std::vector<Soldier*> commandedSoldiers;

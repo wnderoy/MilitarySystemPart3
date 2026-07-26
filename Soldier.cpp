@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Soldier.h"
 using namespace std;
+/*part 3:
+name - char* now string
+role - char* now string
+*/
 
 int Soldier::s_nextId = 1;
 int Soldier::s_nextPersonalNumber = 1000;

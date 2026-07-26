@@ -5,7 +5,10 @@
 #include <string>
 
 class Unit;
-
+/*part 3:
+name - char* now string
+role - char* now string
+*/
 class Soldier {
 public:
     enum class eRank {

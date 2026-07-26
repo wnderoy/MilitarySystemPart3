@@ -1,7 +1,13 @@
 #include <iostream>
 #include "Officer.h"
 using namespace std;
+/*
+part 3:
 
+commandedSoldiers - Soldier** now vector<Soldier*> 
+commandedCount - deleted cause now we have vector
+ commandedCapacity - deleted
+*/
 Officer::Officer(const string& name, const Date& birthDate, const string& role, eRank rank)
 : Soldier(name, birthDate, role, rank)
 {
