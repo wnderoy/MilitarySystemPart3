@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include "Equipment.h";
+#include "Equipment.h"
 
 /*
    char* name;

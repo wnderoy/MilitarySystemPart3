@@ -2,6 +2,7 @@
 #include "Date.h"
 using namespace std;
 
+Date::Date(int day, int month, int year) : day(day), month(month), year(year) {}
 
 int Date::getDay() const
 {
