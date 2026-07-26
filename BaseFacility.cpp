@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
-#include "BaseFacility.h";
-#include "Warehouse.h";
-#include "Vehicle.h";
+#include "BaseFacility.h"
+#include "Warehouse.h"
+#include "Vehicle.h"
 
 BaseFacility::BaseFacility()
     : vehicleCount(0), vehicleCapacity(10),

@@ -30,7 +30,7 @@ private:
     BaseFacility base;
 
 public:
-    MilitarySystem::MilitarySystem();
+    MilitarySystem();
        ~MilitarySystem();
 
     MilitarySystem(const MilitarySystem& other) = delete;
