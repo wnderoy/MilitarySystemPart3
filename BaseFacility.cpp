@@ -8,7 +8,11 @@
 #include "ArmoredTransport.h"
 
 using namespace std;
-
+/*
+part 3:
+vehicles - Vehicle** is now vector<Vehicle*> 
+warehouses - Warehouse** is now a vector<Warehouse*> 
+*/
 BaseFacility::BaseFacility()
 {
 }

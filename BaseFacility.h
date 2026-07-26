@@ -2,7 +2,11 @@
 #define BASE_FACILITY_H
 
 #include <vector>
-
+/*
+part 3:
+vehicles - Vehicle** is now vector<Vehicle*> 
+warehouses - Warehouse** is now a vector<Warehouse*> 
+*/
 class Vehicle;
 class Warehouse;
 

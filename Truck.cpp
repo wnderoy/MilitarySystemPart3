@@ -3,7 +3,13 @@
 #include "Equipment.h"
 
 using namespace std;
+/*
+part 3:
+loadedEquipment - Equipment* static now vector<Equipment*>
+loadedCapacity - deleted
+loadedCount - deleted
 
+*/
 Truck::Truck(const string& vehicleNumber, double maxWeightKG)
     : Vehicle(vehicleNumber), maxWeightKG(maxWeightKG)
 {
