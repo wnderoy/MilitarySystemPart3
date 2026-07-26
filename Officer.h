@@ -2,17 +2,16 @@
 #define OFFICER_H
 
 #include "Soldier.h"
+#include <vector>
 
 class Officer : public Soldier {
 private:
-    Soldier** commandedSoldiers;
-    int commandedCount;
-    int commandedCapacity;
+    std::vector<Soldier*> commandedSoldiers;
 
 public:
-    Officer(const char* name,
+    Officer(const std::string& name,
             const Date& birthDate,
-            const char* role,
+            const std::string& role,
             eRank rank);
     ~Officer();
 
@@ -22,13 +21,11 @@ public:
     int getCommandedCount() const;
     Soldier* getCommandedSoldier(int index) const;
 
-    bool addCommandedSoldier(Soldier* soldier);
-    //bool addCommandedSoldier(Soldier& soldier);
-    bool removeCommandedSoldier(const Soldier* soldier);
+    bool addCommandedSoldier(Soldier& soldier);
+    bool removeCommandedSoldier(const Soldier& soldier);
     void printCommandedSoldiers() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Officer &officer);
-    //void print() const override;
 };
 
 #endif // OFFICER_H

@@ -2,6 +2,7 @@
 #define LOGISTICS_MISSION_H
 
 #include "Mission.h"
+#include <vector>
 class Equipment;
 
 class Vehicle;
@@ -10,12 +11,10 @@ class LogisticsMission : public Mission {
 private:
     Vehicle* assignedVehicle;
 
-    Equipment** requiredEquipment;
-    int requiredCount;
-    int requiredCapacity;
+    std::vector<Equipment*> requiredEquipment;
 
 public:
-    LogisticsMission(const char* missionName, Unit* assignedUnit);
+    LogisticsMission(const std::string& missionName, Unit* assignedUnit);
     ~LogisticsMission();
 
     LogisticsMission(const LogisticsMission& other) = delete;
@@ -27,8 +26,8 @@ public:
 
     bool setAssignedVehicle(Vehicle* vehicle);
 
-    bool addEquipment(Equipment* equipment);
-    bool removeEquipment(const Equipment* equipment);
+    bool addEquipment(Equipment& equipment);
+    bool removeEquipment(const Equipment& equipment);
 
     friend std::ostream &operator<<(std::ostream &os, const Mission &mission);
 };

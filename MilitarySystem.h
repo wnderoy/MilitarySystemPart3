@@ -6,6 +6,8 @@
 #include "Equipment.h"
 #include "TrainingMission.h"
 #include "Report.h"
+#include <vector>
+#include <string>
 
 class Date;
 class Unit;
@@ -15,17 +17,9 @@ class Mission;
 
 class MilitarySystem {
 private:
-    Soldier**   soldiers;
-    int         soldiersCount;
-    int         soldiersCapacity;
-
-    Unit**      units;
-    int         unitsCount;
-    int         unitsCapacity;
-
-    Mission**   missions;
-    int         missionsCount;
-    int         missionsCapacity;
+    std::vector<Soldier*> soldiers;
+    std::vector<Unit*> units;
+    std::vector<Mission*> missions;
 
     BaseFacility base;
 
@@ -36,42 +30,42 @@ public:
     MilitarySystem(const MilitarySystem& other) = delete;
     MilitarySystem& operator=(const MilitarySystem& other) = delete;
 
-    bool addSoldier(const char* name,
+    bool addSoldier(const std::string& name,
                     const Date& birthDate,
-                    const char* role,
+                    const std::string& role,
                     Soldier::eRank rank);
-    bool addOfficer(const char* name,
+    bool addOfficer(const std::string& name,
                     const Date& birthDate,
-                    const char* role,
+                    const std::string& role,
                     Soldier::eRank rank);
     const Soldier* findSoldier(int personalNumber) const;
 
-    bool addUnit(const char* unitName);
+    bool addUnit(const std::string& unitName);
     const Unit* findUnit(int unitId) const;
     bool assignSoldierToUnit(int personalNumber, int unitId);
     bool transferSoldier(int personalNumber, int newUnitId);
 
-    bool addWarehouse(const char* name);
-    const Warehouse* findWarehouse(const char* name) const;
-    bool addEquipment(const char* warehouseName,
-                      const char* equipmentName,
-                      const char* serialNumber,
+    bool addWarehouse(const std::string& name);
+    const Warehouse* findWarehouse(const std::string& name) const;
+    bool addEquipment(const std::string& warehouseName,
+                      const std::string& equipmentName,
+                      const std::string& serialNumber,
                       int quantity,
                       Equipment::eEquipmentStatus status);
 
-    Vehicle* findVehicle(const char* vehicleNumber) const;
-    bool setVehicleDriver(const char* vehicleNumber, int personalNumber);
+    const Vehicle* findVehicle(const std::string& vehicleNumber) const;
+    bool setVehicleDriver(const std::string& vehicleNumber, int personalNumber);
 
-    bool addTrainingMission(const char* missionName,
+    bool addTrainingMission(const std::string& missionName,
                             int unitId,
                             TrainingMission::eTrainingType trainingType,
                             TrainingMission::eDifficultyLevel difficultyLevel);
-    int addLogisticsMission(const char* missionName, int unitId);
-    Mission* findMission(int missionId) const;
-    bool setMissionVehicle(int missionId, const char* vehicleNumber);
+    int addLogisticsMission(const std::string& missionName, int unitId);
+    const Mission* findMission(int missionId) const;
+    bool setMissionVehicle(int missionId, const std::string& vehicleNumber);
     bool addMissionEquipment(int missionId,
-                             const char* warehouseName,
-                             const char* equipmentName);
+                             const std::string& warehouseName,
+                             const std::string& equipmentName);
 
     BaseFacility&       getBase();
     const BaseFacility& getBase() const;
@@ -84,4 +78,3 @@ public:
 };
 
 #endif // MILITARY_SYSTEM_H
- 

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string.h>
 #include "Report.h"
 using namespace std;
 
@@ -41,5 +40,3 @@ int Report::getActiveMissionCount() const
     << ", Active Mission Count: " << report.activeMissionCount;
     return os;
 };
-
-// void Report::print() const;

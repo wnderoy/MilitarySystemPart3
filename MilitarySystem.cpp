@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
 #include "MilitarySystem.h"
 #include "BaseFacility.h"
@@ -14,116 +13,56 @@ using namespace std;
 #include "Equipment.h"
 #include "Report.h"
 
-MilitarySystem::MilitarySystem():base(), soldiersCount(0), soldiersCapacity(10),
-      unitsCount(0), unitsCapacity(10),
-      missionsCount(0), missionsCapacity(10)
+MilitarySystem::MilitarySystem()
 {
-    this->soldiers = new Soldier*[this->soldiersCapacity];
-    for (int i = 0; i < this->soldiersCapacity; i++) {
-        this->soldiers[i] = nullptr;
-    }
-
-    this->units = new Unit*[this->unitsCapacity];
-    for (int i = 0; i < this->unitsCapacity; i++) {
-        this->units[i] = nullptr;
-    }
-
-    this->missions = new Mission*[this->missionsCapacity];
-    for (int i = 0; i < this->missionsCapacity; i++) {
-        this->missions[i] = nullptr;
-    }
 }
 
 MilitarySystem::~MilitarySystem()
 {
-    for (int i = 0; i < this->soldiersCount; i++) {
-        delete this->soldiers[i];
+    for (size_t i = 0; i < soldiers.size(); i++) {
+        delete soldiers[i];
     }
-    delete[] this->soldiers;
-
-    for (int i = 0; i < this->unitsCount; i++) {
-        delete this->units[i];
+    for (size_t i = 0; i < units.size(); i++) {
+        delete units[i];
     }
-    delete[] this->units;
-
-    for (int i = 0; i < this->missionsCount; i++) {
-        delete this->missions[i];
+    for (size_t i = 0; i < missions.size(); i++) {
+        delete missions[i];
     }
-    delete[] this->missions;
 }
 
-bool MilitarySystem::addSoldier(const char* name, const Date& birthDate, const char* role, Soldier::eRank rank)
+bool MilitarySystem::addSoldier(const string& name, const Date& birthDate, const string& role, Soldier::eRank rank)
 {
-    if (this->soldiersCount >= this->soldiersCapacity) {
-        int newCapacity = this->soldiersCapacity * 2;
-        Soldier** temp = new Soldier*[newCapacity];
-        for (int i = 0; i < this->soldiersCapacity; i++) {
-            temp[i] = this->soldiers[i];
-        }
-        for (int i = this->soldiersCapacity; i < newCapacity; i++) {
-            temp[i] = nullptr;
-        }
-        delete[] this->soldiers;
-        this->soldiers = temp;
-        this->soldiersCapacity = newCapacity;
-    }
-    this->soldiers[this->soldiersCount++] = new Soldier(name, birthDate, role, rank);
+    soldiers.push_back(new Soldier(name, birthDate, role, rank));
     return true;
 }
 
-bool MilitarySystem::addOfficer(const char* name, const Date& birthDate, const char* role, Soldier::eRank rank)
+bool MilitarySystem::addOfficer(const string& name, const Date& birthDate, const string& role, Soldier::eRank rank)
 {
-    if (this->soldiersCount >= this->soldiersCapacity) {
-        int newCapacity = this->soldiersCapacity * 2;
-        Soldier** temp = new Soldier*[newCapacity];
-        for (int i = 0; i < this->soldiersCapacity; i++) {
-            temp[i] = this->soldiers[i];
-        }
-        for (int i = this->soldiersCapacity; i < newCapacity; i++) {
-            temp[i] = nullptr;
-        }
-        delete[] this->soldiers;
-        this->soldiers = temp;
-        this->soldiersCapacity = newCapacity;
-    }
-    this->soldiers[this->soldiersCount++] = new Officer(name, birthDate, role, rank);
+    soldiers.push_back(new Officer(name, birthDate, role, rank));
     return true;
 }
 
 const Soldier* MilitarySystem::findSoldier(int personalNumber) const
 {
-    for (int i = 0; i < this->soldiersCount; i++) {
-        if (this->soldiers[i]->getPersonalNumber() == personalNumber) {
-            return this->soldiers[i];
+    for (size_t i = 0; i < soldiers.size(); i++) {
+        if (soldiers[i]->getPersonalNumber() == personalNumber) {
+            return soldiers[i];
         }
     }
     return nullptr;
 }
 
-bool MilitarySystem::addUnit(const char* unitName)
+bool MilitarySystem::addUnit(const string& unitName)
 {
-    if (this->unitsCount >= this->unitsCapacity) {
-        int newCapacity = this->unitsCapacity * 2;
-        Unit** temp = new Unit*[newCapacity];
-        for (int i = 0; i < this->unitsCapacity; i++) {
-            temp[i] = this->units[i];
-        }
-        for (int i = this->unitsCapacity; i < newCapacity; i++) {
-            temp[i] = nullptr;
-        }
-        delete[] this->units;
-        this->units = temp;
-        this->unitsCapacity = newCapacity;
-    }
-    this->units[this->unitsCount++] = new Unit(unitName);
+    units.push_back(new Unit(unitName));
     return true;
 }
 
 const Unit* MilitarySystem::findUnit(int unitId) const
 {
-    for (int i = 0; i < this->unitsCount; i++) {
-        if (this->units[i]->getUnitId() == unitId) {
-            return this->units[i];
+    for (size_t i = 0; i < units.size(); i++) {
+        if (units[i]->getUnitId() == unitId) {
+            return units[i];
         }
     }
     return nullptr;
@@ -135,9 +74,9 @@ bool MilitarySystem::assignSoldierToUnit(int personalNumber, int unitId)
     if (!unit) return false;
 
     Soldier* soldier = nullptr;
-    for (int i = 0; i < this->soldiersCount; i++) {
-        if (this->soldiers[i]->getPersonalNumber() == personalNumber) {
-            soldier = this->soldiers[i];
+    for (size_t i = 0; i < soldiers.size(); i++) {
+        if (soldiers[i]->getPersonalNumber() == personalNumber) {
+            soldier = soldiers[i];
             break;
         }
     }
@@ -152,9 +91,9 @@ bool MilitarySystem::assignSoldierToUnit(int personalNumber, int unitId)
 bool MilitarySystem::transferSoldier(int personalNumber, int newUnitId)
 {
     Soldier* soldier = nullptr;
-    for (int i = 0; i < this->soldiersCount; i++) {
-        if (this->soldiers[i]->getPersonalNumber() == personalNumber) {
-            soldier = this->soldiers[i];
+    for (size_t i = 0; i < soldiers.size(); i++) {
+        if (soldiers[i]->getPersonalNumber() == personalNumber) {
+            soldier = soldiers[i];
             break;
         }
     }
@@ -162,61 +101,61 @@ bool MilitarySystem::transferSoldier(int personalNumber, int newUnitId)
 
     Unit* oldUnit = soldier->getUnit();
     if (oldUnit) {
-        oldUnit->removeSoldier(soldier);
+        oldUnit->removeSoldier(*soldier);
     }
 
     const Unit* newUnit = findUnit(newUnitId);
     if (!newUnit) {
-        if (oldUnit) oldUnit->addSoldier(*soldier); // rollback
+        if (oldUnit) oldUnit->addSoldier(*soldier);
         return false;
     }
 
     Unit* nu = const_cast<Unit*>(newUnit);
     if (!nu->addSoldier(*soldier)) {
-        if (oldUnit) oldUnit->addSoldier(*soldier); // rollback
+        if (oldUnit) oldUnit->addSoldier(*soldier);
         return false;
     }
     soldier->setUnit(nu);
     return true;
 }
 
-bool MilitarySystem::addWarehouse(const char* name)
+bool MilitarySystem::addWarehouse(const string& name)
 {
     return this->base.addWarehouse(new Warehouse(name));
 }
 
-const Warehouse* MilitarySystem::findWarehouse(const char* name) const
+const Warehouse* MilitarySystem::findWarehouse(const string& name) const
 {
     return this->base.findWarehouse(name);
 }
 
-bool MilitarySystem::addEquipment(const char* warehouseName, const char* equipmentName, const char* serialNumber, int quantity, Equipment::eEquipmentStatus status)
+bool MilitarySystem::addEquipment(const string& warehouseName, const string& equipmentName, const string& serialNumber, int quantity, Equipment::eEquipmentStatus status)
 {
     Warehouse* w = const_cast<Warehouse*>(this->base.findWarehouse(warehouseName));
     if (!w) return false;
 
     Equipment* eq = new Equipment(equipmentName, serialNumber, quantity, status);
-    if (!w->addEquipment(eq)) {
+    if (!w->addEquipment(*eq)) {
         delete eq;
         return false;
     }
     return true;
 }
 
-Vehicle* MilitarySystem::findVehicle(const char* vehicleNumber) const
+const Vehicle* MilitarySystem::findVehicle(const string& vehicleNumber) const
 {
-    return const_cast<Vehicle*>(this->base.findVehicle(vehicleNumber));
+    return this->base.findVehicle(vehicleNumber);
 }
 
-bool MilitarySystem::setVehicleDriver(const char* vehicleNumber, int personalNumber)
+bool MilitarySystem::setVehicleDriver(const string& vehicleNumber, int personalNumber)
 {
-    Vehicle* v = findVehicle(vehicleNumber);
+    Vehicle* v = const_cast<Vehicle*>(findVehicle(vehicleNumber));
     if (!v) return false;
 
     Soldier* driver = nullptr;
-    for (int i = 0; i < this->soldiersCount; i++) {
-        if (this->soldiers[i]->getPersonalNumber() == personalNumber) {
-            driver = this->soldiers[i];
+    for (size_t i = 0; i < soldiers.size(); i++) {
+        if (soldiers[i]->getPersonalNumber() == personalNumber) {
+            driver = soldiers[i];
             break;
         }
     }
@@ -225,81 +164,53 @@ bool MilitarySystem::setVehicleDriver(const char* vehicleNumber, int personalNum
     return v->setDriver(driver);
 }
 
-bool MilitarySystem::addTrainingMission(const char* missionName, int unitId, TrainingMission::eTrainingType trainingType, TrainingMission::eDifficultyLevel difficultyLevel)
+bool MilitarySystem::addTrainingMission(const string& missionName, int unitId, TrainingMission::eTrainingType trainingType, TrainingMission::eDifficultyLevel difficultyLevel)
 {
-    if (this->missionsCount >= this->missionsCapacity) {
-        int newCapacity = this->missionsCapacity * 2;
-        Mission** temp = new Mission*[newCapacity];
-        for (int i = 0; i < this->missionsCapacity; i++) {
-            temp[i] = this->missions[i];
-        }
-        for (int i = this->missionsCapacity; i < newCapacity; i++) {
-            temp[i] = nullptr;
-        }
-        delete[] this->missions;
-        this->missions = temp;
-        this->missionsCapacity = newCapacity;
-    }
-
     const Unit* unit = findUnit(unitId);
     if (!unit) return false;
 
-    this->missions[this->missionsCount++] = new TrainingMission(missionName, const_cast<Unit*>(unit), trainingType, difficultyLevel);
+    missions.push_back(new TrainingMission(missionName, const_cast<Unit*>(unit), trainingType, difficultyLevel));
     return true;
 }
 
-int MilitarySystem::addLogisticsMission(const char* missionName, int unitId)
+int MilitarySystem::addLogisticsMission(const string& missionName, int unitId)
 {
-    if (this->missionsCount >= this->missionsCapacity) {
-        int newCapacity = this->missionsCapacity * 2;
-        Mission** temp = new Mission*[newCapacity];
-        for (int i = 0; i < this->missionsCapacity; i++) {
-            temp[i] = this->missions[i];
-        }
-        for (int i = this->missionsCapacity; i < newCapacity; i++) {
-            temp[i] = nullptr;
-        }
-        delete[] this->missions;
-        this->missions = temp;
-        this->missionsCapacity = newCapacity;
-    }
-
     const Unit* unit = findUnit(unitId);
     if (!unit) return -1;
 
     LogisticsMission* lm = new LogisticsMission(missionName, const_cast<Unit*>(unit));
     int id = lm->getMissionId();
-    this->missions[this->missionsCount++] = lm;
+    missions.push_back(lm);
     return id;
 }
 
-Mission* MilitarySystem::findMission(int missionId) const
+const Mission* MilitarySystem::findMission(int missionId) const
 {
-    for (int i = 0; i < this->missionsCount; i++) {
-        if (this->missions[i]->getMissionId() == missionId) {
-            return this->missions[i];
+    for (size_t i = 0; i < missions.size(); i++) {
+        if (missions[i]->getMissionId() == missionId) {
+            return missions[i];
         }
     }
     return nullptr;
 }
 
-bool MilitarySystem::setMissionVehicle(int missionId, const char* vehicleNumber)
+bool MilitarySystem::setMissionVehicle(int missionId, const string& vehicleNumber)
 {
-    Mission* m = findMission(missionId);
+    Mission* m = const_cast<Mission*>(findMission(missionId));
     if (!m) return false;
 
     LogisticsMission* lm = dynamic_cast<LogisticsMission*>(m);
     if (!lm) return false;
 
-    Vehicle* v = findVehicle(vehicleNumber);
+    Vehicle* v = const_cast<Vehicle*>(findVehicle(vehicleNumber));
     if (!v) return false;
 
     return lm->setAssignedVehicle(v);
 }
 
-bool MilitarySystem::addMissionEquipment(int missionId, const char* warehouseName, const char* equipmentName)
+bool MilitarySystem::addMissionEquipment(int missionId, const string& warehouseName, const string& equipmentName)
 {
-    Mission* m = findMission(missionId);
+    Mission* m = const_cast<Mission*>(findMission(missionId));
     if (!m) return false;
 
     LogisticsMission* lm = dynamic_cast<LogisticsMission*>(m);
@@ -311,7 +222,7 @@ bool MilitarySystem::addMissionEquipment(int missionId, const char* warehouseNam
     Equipment* eq = w->searchEquipment(equipmentName);
     if (!eq) return false;
 
-    return lm->addEquipment(eq);
+    return lm->addEquipment(*eq);
 }
 
 BaseFacility& MilitarySystem::getBase()
@@ -326,21 +237,21 @@ const BaseFacility& MilitarySystem::getBase() const
 
 void MilitarySystem::printAllUnits() const
 {
-    for (int i = 0; i < this->unitsCount; i++) {
-        cout<< *this->units[i];
+    for (size_t i = 0; i < units.size(); i++) {
+        cout<< *units[i];
     }
 }
 
 void MilitarySystem::printAllMissions() const
 {
-    for (int i = 0; i < this->missionsCount; i++) {
-        cout << *this->missions[i] << "\n";
+    for (size_t i = 0; i < missions.size(); i++) {
+        cout << *missions[i] << "\n";
     }
 }
 
 int MilitarySystem::getMissionsCount() const
 {
-    return this->missionsCount;
+    return missions.size();
 }
 
 Report MilitarySystem::generateReport() const
@@ -351,7 +262,7 @@ Report MilitarySystem::generateReport() const
             totalEquipment += this->base.getWarehouse(i)->getEquipmentCount();
         }
     }
-    return Report(this->soldiersCount,this->unitsCount,this->base.getVehicleCount(),totalEquipment,this->missionsCount);
+    return Report(soldiers.size(), units.size(), base.getVehicleCount(), totalEquipment, missions.size());
 }
 
 void MilitarySystem::printAllData() const

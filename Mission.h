@@ -1,6 +1,8 @@
 #ifndef MISSION_H
 #define MISSION_H
 
+#include <string>
+
 class Unit;
 
 class Mission {
@@ -13,28 +15,27 @@ public:
 
 private:
     static int s_nextMissionId;
-    char* missionName;
+    std::string missionName;
     int   missionId;
     eMissionStatus status;
     Unit* assignedUnit;
 
 public:
-    Mission(const char* missionName, Unit* assignedUnit);
+    Mission(const std::string& missionName, Unit* assignedUnit);
     virtual ~Mission();
 
     Mission(const Mission& other) = delete;
     Mission& operator=(const Mission& other) = delete;
 
-    const char*    getMissionName() const;
+    const std::string& getMissionName() const;
     int            getMissionId() const;
     eMissionStatus getStatus() const;
     Unit*          getAssignedUnit() const;
 
-    bool setMissionName(const char* missionName);
+    bool setMissionName(const std::string& missionName);
     bool setStatus(eMissionStatus newStatus);
 
     friend std::ostream &operator<<(std::ostream &os, const Mission &mission);
-    //virtual void print() const = 0;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Mission::eMissionStatus& status) {

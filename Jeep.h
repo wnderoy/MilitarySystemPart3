@@ -2,18 +2,17 @@
 #define JEEP_H
 
 #include "Vehicle.h"
+#include <vector>
 
 class Soldier;
 
 class Jeep : virtual public Vehicle {
 private:
-    Soldier** passengers;
-    int passengerCount;
-
+    std::vector<Soldier*> passengers;
     int maxPassengers;
 
 public:
-    Jeep(const char* vehicleNumber, int maxPassengers);
+    Jeep(const std::string& vehicleNumber, int maxPassengers);
     ~Jeep();
 
     Jeep(const Jeep& other) = delete;
@@ -25,11 +24,10 @@ public:
 
     bool setMaxPassengers(int maxPassengers);
 
-    bool loadPassenger(Soldier* soldier);
-    bool unloadPassenger(const Soldier* soldier);
+    bool loadPassenger(Soldier& soldier);
+    bool unloadPassenger(const Soldier& soldier);
 
     friend std::ostream &operator<<(std::ostream &os, const Jeep &jeep);
-    // void print() const override;
 };
 
 #endif // JEEP_H

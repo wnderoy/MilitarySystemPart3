@@ -24,7 +24,7 @@ private:
     eDifficultyLevel difficultyLevel;
 
 public:
-    TrainingMission(const char* missionName,
+    TrainingMission(const std::string& missionName,
                     Unit* assignedUnit,
                     eTrainingType trainingType,
                     eDifficultyLevel difficultyLevel);
@@ -41,7 +41,6 @@ public:
     bool improveReadiness();
 
     friend std::ostream &operator<<(std::ostream &os, const TrainingMission &trainingMission);
-    //void print() const override;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const TrainingMission::eTrainingType& status) 

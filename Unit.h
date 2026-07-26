@@ -1,36 +1,36 @@
 #ifndef UNIT_H
 #define UNIT_H
 
+#include <string>
+#include <vector>
+
 class Soldier;
 
 class Unit {
 private:
     static int s_nextUnitId;
 
-    char* unitName;
+    std::string unitName;
     int   unitId;
 
-    Soldier** soldiers;
-    int count;
-    int capacity;
+    std::vector<Soldier*> soldiers;
 
 public:
-    Unit(const char* unitName);
+    Unit(const std::string& unitName);
     ~Unit();
 
     Unit(const Unit& other) = delete;
     Unit& operator=(const Unit& other) = delete;
 
-    const char* getUnitName() const;
+    const std::string& getUnitName() const;
     int         getUnitId() const;
     int         getSoldierCount() const;
     Soldier*    getSoldier(int index) const;
 
-    bool setUnitName(const char* name);
+    bool setUnitName(const std::string& name);
 
-    //bool addSoldier(Soldier* soldier);
     bool addSoldier(Soldier& soldier);
-    bool removeSoldier(const Soldier* soldier);
+    bool removeSoldier(const Soldier& soldier);
     void printSoldiers() const;
     friend std::ostream &operator<<(std::ostream &os, const Unit &Unit);
 };

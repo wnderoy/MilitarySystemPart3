@@ -2,6 +2,7 @@
 #define SOLDIER_H
 
 #include "Date.h"
+#include <string>
 
 class Unit;
 
@@ -20,43 +21,41 @@ private:
     static int s_nextId;
     static int s_nextPersonalNumber;
 
-    char* name;
+    std::string name;
     int   id;
     Date  birthDate;
 
     int   personalNumber;
-    char* role;
+    std::string role;
     eRank rank;
     Unit* unit;
 
 public:
-    Soldier(const char* name,
+    Soldier(const std::string& name,
             const Date& birthDate,
-            const char* role,
+            const std::string& role,
             eRank rank);
     virtual ~Soldier();
 
     Soldier(const Soldier& other) = delete;
     Soldier& operator=(const Soldier& other) = delete;
 
-    const char* getName() const;
+    const std::string& getName() const;
     int         getId() const;
     const Date& getBirthDate() const;
     int         getPersonalNumber() const;
-    const char* getRole() const;
+    const std::string& getRole() const;
     eRank       getRank() const;
     Unit*       getUnit() const;
 
-    bool setName(const char* name);
+    bool setName(const std::string& name);
     bool setBirthDate(const Date& birthDate);
-    bool setRole(const char* role);
+    bool setRole(const std::string& role);
     bool setRank(eRank rank);
     bool setUnit(Unit* newUnit);
 
     friend std::ostream &operator<<(std::ostream &os, const Soldier &soldier);
-    // virtual void print() const;
 };
-
 
 inline std::ostream& operator<<(std::ostream& os, const Soldier::eRank& rank) {
     switch (rank) {

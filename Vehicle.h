@@ -1,27 +1,29 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
+#include <string>
+
 class Soldier;
 
 class Vehicle
 {
 private:
-    char* vehicleNumber;
+    std::string vehicleNumber;
     bool available;
     bool needsMaintenance;
 
     Soldier* driver;
 
-    bool setVehicleNumber(const char* vehicleNumber);
+    bool setVehicleNumber(const std::string& vehicleNumber);
 
 public:
-    Vehicle(const char* vehicleNumber);
+    Vehicle(const std::string& vehicleNumber);
     virtual ~Vehicle();
 
     Vehicle(const Vehicle &other) = delete;
     Vehicle &operator=(const Vehicle &other) = delete;
 
-    const char* getVehicleNumber() const;
+    const std::string& getVehicleNumber() const;
     bool getAvailable() const;
     bool getNeedsMaintenance() const;
     Soldier* getDriver() const;
@@ -30,7 +32,6 @@ public:
     bool sendToMaintenance();
     bool setDriver(Soldier* driver);
 
-    // virtual void print() const = 0;
     friend std::ostream &operator<<(std::ostream &os, const Vehicle &Vehicle);
 };
 

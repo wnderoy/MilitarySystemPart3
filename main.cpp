@@ -11,14 +11,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
-const int LINE_LEN = 256;
-
-void readPersonInput(const char* namePrompt,
-                     char* name,
-                     char* role,
+void readPersonInput(const string& namePrompt,
+                     string& name,
+                     string& role,
                      int& day,
                      int& month,
                      int& year,
@@ -35,8 +34,7 @@ void readPersonInput(const char* namePrompt,
 }
 
 void addSoldier(MilitarySystem& militarySystem) {
-    char name[LINE_LEN];
-    char role[LINE_LEN];
+    string name, role;
     int day, month, year, rank;
 
     readPersonInput("Soldier name: ", name, role, day, month, year, rank);
@@ -50,8 +48,7 @@ void addSoldier(MilitarySystem& militarySystem) {
 }
 
 void addOfficer(MilitarySystem& militarySystem) {
-    char name[LINE_LEN];
-    char role[LINE_LEN];
+    string name, role;
     int day, month, year, rank;
 
     readPersonInput("Officer name: ", name, role, day, month, year, rank);
@@ -65,7 +62,7 @@ void addOfficer(MilitarySystem& militarySystem) {
 }
 
 void createUnit(MilitarySystem& militarySystem) {
-    char unitName[LINE_LEN];
+    string unitName;
     cout << "Unit name: ";
     cin >> unitName;
 
@@ -77,7 +74,7 @@ void createUnit(MilitarySystem& militarySystem) {
 }
 
 void addWarehouse(MilitarySystem& militarySystem) {
-    char warehouseName[LINE_LEN];
+    string warehouseName;
     cout << "Warehouse name: "; 
     cin >> warehouseName;
 
@@ -95,9 +92,7 @@ void addEquipment(MilitarySystem& militarySystem) {
         return;
     }
 
-    char warehouseName[LINE_LEN];
-    char equipmentName[LINE_LEN];
-    char serialNumber[LINE_LEN];
+    string warehouseName, equipmentName, serialNumber;
     int quantity, equipmentStatus;
 
     cout << "Warehouse name: ";
@@ -126,7 +121,7 @@ void addEquipment(MilitarySystem& militarySystem) {
 }
 
 void createTrainingMission(MilitarySystem& militarySystem) {
-    char name[LINE_LEN];
+    string name;
     int unitId, trainingType, difficultyLevel;
 
     cout << "Mission name: ";   
@@ -160,7 +155,7 @@ void updateMissionStatus(MilitarySystem& militarySystem) {
     cout << "Status (0=NOT_STARTED 1=IN_PROGRESS 2=COMPLETED): "; 
     cin >> missionStatus;
 
-    Mission* mission = militarySystem.findMission(missionId);
+    Mission* mission = const_cast<Mission*>(militarySystem.findMission(missionId));
     if (!mission) {
         cout << "Mission not found." << endl;
         return;

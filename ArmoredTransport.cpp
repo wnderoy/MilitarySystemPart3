@@ -1,7 +1,7 @@
 #include "ArmoredTransport.h"
 using namespace std;
 
-ArmoredTransport::ArmoredTransport(const char* vehicleNumber, int maxPassengers, double maxWeightKG)
+ArmoredTransport::ArmoredTransport(const string& vehicleNumber, int maxPassengers, double maxWeightKG)
     : Vehicle(vehicleNumber), Jeep(vehicleNumber, maxPassengers), Truck(vehicleNumber, maxWeightKG) {};
 
 std::ostream &operator<<(std::ostream &os, const ArmoredTransport &transport)
@@ -11,5 +11,3 @@ std::ostream &operator<<(std::ostream &os, const ArmoredTransport &transport)
        << ", Max Weight (KG): " << transport.getMaxWeightKG();
     return os;
 };
-
-

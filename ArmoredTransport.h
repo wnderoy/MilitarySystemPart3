@@ -7,7 +7,7 @@
 
 class ArmoredTransport : public Jeep, public Truck {
 public:
-    ArmoredTransport(const char* vehicleNumber,
+    ArmoredTransport(const std::string& vehicleNumber,
                      int maxPassengers,
                      double maxWeightKG);
 
@@ -15,7 +15,6 @@ public:
     ArmoredTransport& operator=(const ArmoredTransport& other) = delete;
 
     friend std::ostream &operator<<(std::ostream &os, const ArmoredTransport &transport);
-    // void print() const override;
 };
 
 #endif // ARMORED_TRANSPORT_H

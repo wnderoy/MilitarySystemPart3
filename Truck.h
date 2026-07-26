@@ -2,19 +2,16 @@
 #define TRUCK_H
 
 #include "Vehicle.h"
+#include <vector>
 class Equipment;
 
 class Truck : virtual public Vehicle {
-public:
-    static const int loadedCapacity = 10;
 private:
-    Equipment* loadedEquipment[loadedCapacity];
-    int loadedCount;
-
+    std::vector<Equipment*> loadedEquipment;
     double maxWeightKG;
 
 public:
-    Truck(const char* vehicleNumber, double maxWeightKG);
+    Truck(const std::string& vehicleNumber, double maxWeightKG);
     ~Truck();
 
     Truck(const Truck& other) = delete;
@@ -26,10 +23,8 @@ public:
 
     bool setMaxWeightKG(double maxWeightKG);
 
-    bool loadEquipment(Equipment* equipment);
-    bool unloadEquipment(const Equipment* equipment);
-
-    //void print() const override;
+    bool loadEquipment(Equipment& equipment);
+    bool unloadEquipment(const Equipment& equipment);
 };
 
 #endif // TRUCK_H

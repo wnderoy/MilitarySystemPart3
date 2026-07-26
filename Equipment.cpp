@@ -1,46 +1,28 @@
 #include <iostream>
-using namespace std;
 #include "Equipment.h"
+using namespace std;
 
-/*
-   char* name;
-    char* serialNumber;
-    int quantity;
-    eEquipmentStatus status;
-*/
- 
-Equipment::Equipment(const char* name,
-              const char* serialNumber,
+Equipment::Equipment(const string& name,
+              const string& serialNumber,
               int quantity,
-              eEquipmentStatus status) : quantity(quantity),status(status)
+              eEquipmentStatus status)
+    : name(name), serialNumber(serialNumber), quantity(quantity), status(status)
 {
-    this->name = new char[strlen(name) + 1];
-    strcpy(this->name,name);
-    this->serialNumber = new char[strlen(serialNumber) + 1];
-    strcpy(this->serialNumber,serialNumber);
-};
+}
 
 Equipment::Equipment(Equipment&& other) noexcept 
-    : name(other.name), serialNumber(other.serialNumber), 
+    : name(std::move(other.name)), serialNumber(std::move(other.serialNumber)), 
       quantity(other.quantity), status(other.status) 
 {
-    other.name = nullptr;
-    other.serialNumber = nullptr;
     other.quantity = 0;
 }
 
 Equipment& Equipment::operator=(Equipment&& other) noexcept {
     if (this != &other) {
-        delete[] this->name;
-        delete[] this->serialNumber;
-
-        this->name = other.name;
-        this->serialNumber = other.serialNumber;
-        this->quantity = other.quantity;
-        this->status = other.status;
-
-        other.name = nullptr;
-        other.serialNumber = nullptr;
+        name = std::move(other.name);
+        serialNumber = std::move(other.serialNumber);
+        quantity = other.quantity;
+        status = other.status;
         other.quantity = 0;
     }
     return *this;
@@ -48,46 +30,43 @@ Equipment& Equipment::operator=(Equipment&& other) noexcept {
 
 Equipment::~Equipment()
 {
-    delete[] this->name;    
-    delete[] this->serialNumber;
-};
-const char* Equipment::getName() const
+}
+
+const string& Equipment::getName() const
 {
-    return this->name;
-};
-const char* Equipment::getSerialNumber() const
+    return name;
+}
+
+const string& Equipment::getSerialNumber() const
 {
-    return this->serialNumber;
-};
+    return serialNumber;
+}
+
 int Equipment::getQuantity() const
 {
-    return this->quantity;
-};
+    return quantity;
+}
+
 Equipment::eEquipmentStatus Equipment::getStatus() const
 {
-    return this->status;
-};
-bool Equipment::setName(const char* name)
+    return status;
+}
+
+bool Equipment::setName(const string& name)
 {
-    if (name == nullptr || strlen(name) == 0) {
+    if (name.empty()) {
         return false;
     }
-    delete[] this->name;
-    
-    this->name = new char[strlen(name) + 1];
-    strcpy(this->name, name);
+    this->name = name;
     return true;
 }
-bool Equipment::setSerialNumber(const char* serialNumber)
+
+bool Equipment::setSerialNumber(const string& serialNumber)
 {
-    if (serialNumber == nullptr || strlen(serialNumber) == 0) {
+    if (serialNumber.empty()) {
         return false;
     }
-    
-    delete[] this->serialNumber;
-    
-    this->serialNumber = new char[strlen(serialNumber) + 1];
-    strcpy(this->serialNumber, serialNumber);
+    this->serialNumber = serialNumber;
     return true;
 }
 
@@ -120,16 +99,3 @@ void Equipment::print() const {
          << "Quantity:       " << this->quantity << "\n"
          << "Status:         " << (this->status == eEquipmentStatus::WORKING ? "WORKING" : "DAMAGED") << endl;
 }
-/*
-    
-    
-    
-
-    bool setName(const char* name);
-    bool setSerialNumber(const char* serialNumber);
-    bool setQuantity(int quantity);
-    bool setStatus(eEquipmentStatus status);
-
-    void print() const;
-};
-*/

@@ -23,7 +23,6 @@ public:
     bool isValid() const;
     void print() const;
 
-    // We added this general override function instead of the very specific Print() function that we've decided to remove.
     friend std::ostream &operator<<(std::ostream &os, const Date &date)
     {
         if (date.day < 10)

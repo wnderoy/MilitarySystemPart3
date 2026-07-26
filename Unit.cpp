@@ -2,124 +2,80 @@
 #include "Unit.h"
 using namespace std;
 
+int Unit::s_nextUnitId = 1;
 
-Unit::Unit(const char* unitName)
+Unit::Unit(const string& unitName)
+    : unitName(unitName)
 {
-    setUnitName(unitName);
-    count = 0;
-    capacity = 0;
-    soldiers = nullptr;
+    unitId = s_nextUnitId++;
 }
 
 Unit::~Unit()
 {
-    delete[] soldiers;
 }
 
-const char* Unit::getUnitName() const
+const string& Unit::getUnitName() const
 {
     return unitName;
-};
+}
 
 int Unit::getUnitId() const
 {
     return unitId;
-};
+}
 
 int Unit::getSoldierCount() const
 {
-    return count;
-};
+    return soldiers.size();
+}
 
 Soldier* Unit::getSoldier(int index) const
 {
+    if (index < 0 || index >= (int)soldiers.size()) return nullptr;
     return soldiers[index];
 }
 
-bool Unit::setUnitName(const char* name)
+bool Unit::setUnitName(const string& name)
 {
-    if (name == nullptr)
+    if (name.empty())
     {
         return false;
     }
-    delete[] unitName;
-    unitName = new char[strlen(name) + 1];
-    strcpy(unitName, name);
+    unitName = name;
     return true;
 }
 
-/* bool Unit::addSoldier(Soldier* soldier)
-{
-    if (soldier == nullptr)
-    {
-        return false;
-    }
-
-    soldiers[count] = soldier;
-    count++;
-    return true;
-} */
-
 bool Unit::addSoldier(Soldier& soldier)
 {
-    if (count < capacity)
-    {
-        soldiers[count++] = &soldier;
-    }
-    else
-    {
-        int newCapacity;
-        if (capacity == 0)
-        {
-            newCapacity = 1;
-        }    
-        else
-        {
-            newCapacity = 2 * capacity;
-        }
-        Soldier** tempSoldiers = new Soldier*[newCapacity];
-        for (int i = 0; i < count; i++)
-        {
-            tempSoldiers[i] = soldiers[i];
-        }
-        tempSoldiers[count] = &soldier;
-        delete[] soldiers;
-        soldiers = tempSoldiers;
-        count++;
-        capacity = newCapacity;
-    }
+    soldiers.push_back(&soldier);
     return true;
-};
+}
 
-bool Unit::removeSoldier(const Soldier* soldier)
+bool Unit::removeSoldier(const Soldier& soldier)
 {
-    for (int i = 0; i < count; i++)
+    for (auto it = soldiers.begin(); it != soldiers.end(); ++it)
     {
-        if (soldiers[i] == soldier)
+        if (*it == &soldier)
         {
-            for (int j = i; j < count - 1; j++)
-            {
-                soldiers[j] = soldiers[j + 1];
-            }
-            count--;
+            soldiers.erase(it);
             return true;
         }
     }
     return false;
-};
+}
 
 void Unit::printSoldiers() const
 {
-    for (int i = 0; i < count; i++)
+    for (size_t i = 0; i < soldiers.size(); i++)
     {
         cout << soldiers[i] << endl;
     }
-};
+}
 
 std::ostream &operator<<(std::ostream &os, const Unit &unit)
 {
     os << "Unit Name: " << unit.unitName
        << ", Unit ID: " << unit.unitId
-       << ", Soldier Count: " << unit.count;
+       << ", Soldier Count: " << unit.soldiers.size();
     return os;
-};
+}

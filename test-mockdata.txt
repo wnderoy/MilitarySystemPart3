@@ -1,0 +1,94 @@
+# MilitarySystem — Full Functionality Test
+# Run: perl -e '...' | ./MilitarySystem
+# (copy the block below into a .txt and pipe it)
+
+# ── CREATE DATA ──────────────────────────────────────
+1               # Add soldier
+John            # name
+15              # day
+6               # month
+1998            # year
+Infantry        # role
+2               # rank (SERGEANT)
+────────────────────────────────────────────────────────
+→ "Soldier added."
+
+2               # Add officer
+Mary            # name
+1               # day
+1               # year
+2000            # month
+Comms           # role
+3               # rank (LIEUTENANT)
+────────────────────────────────────────────────────────
+→ "Officer added."
+
+3               # Create unit
+Alpha           # unit name
+────────────────────────────────────────────────────────
+→ "Unit created."
+
+6               # Add warehouse
+DepotA          # warehouse name
+────────────────────────────────────────────────────────
+→ "Warehouse added."
+
+7               # Add equipment
+DepotA          # warehouse name
+Rifle           # equipment name
+R001            # serial number
+50              # quantity
+0               # status (WORKING)
+────────────────────────────────────────────────────────
+→ "Equipment added."
+
+7               # Add equipment (second item)
+DepotA
+Ammo
+A001
+200
+0
+────────────────────────────────────────────────────────
+→ "Equipment added."
+
+8               # Create training mission
+Patrol-1        # mission name
+0               # unitId (0 = first unit)
+0               # training type (FITNESS)
+0               # difficulty (EASY)
+────────────────────────────────────────────────────────
+→ "Training mission created."
+
+13              # Generate report
+────────────────────────────────────────────────────────
+→ Shows: Soldier Count: 2, Equipment Count: 2, Mission Count: 1
+
+12              # Print all data
+────────────────────────────────────────────────────────
+→ Shows DepotA + items, Alpha unit, Patrol-1 mission
+
+0               # Exit
+────────────────────────────────────────────────────────
+→ "Goodbye."
+
+
+# ── WHAT STILL DOESN'T WORK ──────────────────────────
+# These return "Failed" because the underlying methods
+# are stubs or have uninitialized fields:
+#
+# 4  → Assign soldier to unit    (unitId is uninitialized = 0 always)
+# 5  → Add vehicle               (BaseFacility::addJeep/Truck/ArmoredTransport are stubs)
+# 9  → Create logistics mission  (findUnit(1) fails because unitIds are all 0)
+# 10 → Update mission status     (needs a valid mission ID)
+# 11 → Mark vehicle maintenance  (needs a vehicle first)
+
+# ── KNOWN BUGS (not from our changes) ────────────────
+# 1. Unit::s_nextUnitId never used → all units have ID 0
+#    → findUnit(0) works for the FIRST unit only
+# 2. Soldier::s_nextPersonalNumber never used → personalNumber = garbage
+#    → findSoldier() unpredictable
+# 3. BaseFacility::addJeep/addTruck/addArmoredTransport = stubs
+#    → always return false (need implementation)
+# 4. Officer::commandedCapacity starts at 0, never allocates array
+#    → addCommandedSoldier's first expansion works but skip
+# 5. TrainingMission setters self-assign (parameter = parameter, not this->member)

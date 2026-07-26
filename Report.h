@@ -23,7 +23,6 @@ public:
     int getActiveMissionCount() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Report &report);
-    // void print() const;
 };
 
 #endif // REPORT_H

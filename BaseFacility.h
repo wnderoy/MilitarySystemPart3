@@ -1,18 +1,15 @@
 #ifndef BASE_FACILITY_H
 #define BASE_FACILITY_H
 
+#include <vector>
+
 class Vehicle;
 class Warehouse;
 
 class BaseFacility {
 private:
-    Vehicle**   vehicles;
-    int         vehicleCount;
-    int         vehicleCapacity;
-
-    Warehouse** warehouses;
-    int         warehouseCount;
-    int         warehouseCapacity;
+    std::vector<Vehicle*> vehicles;
+    std::vector<Warehouse*> warehouses;
 
 public:
     BaseFacility();
@@ -30,14 +27,14 @@ public:
     bool addVehicle(Vehicle* vehicle);
     bool addWarehouse(Warehouse* warehouse);
 
-    bool addJeep(const char* vehicleNumber, int maxPassengers);
-    bool addTruck(const char* vehicleNumber, double maxWeightKG);
-    bool addArmoredTransport(const char* vehicleNumber,
+    bool addJeep(const std::string& vehicleNumber, int maxPassengers);
+    bool addTruck(const std::string& vehicleNumber, double maxWeightKG);
+    bool addArmoredTransport(const std::string& vehicleNumber,
                              int maxPassengers,
                              double maxWeightKG);
 
-    const Vehicle*   findVehicle(const char* vehicleNumber) const;
-    const Warehouse* findWarehouse(const char* name) const;
+    const Vehicle*   findVehicle(const std::string& vehicleNumber) const;
+    const Warehouse* findWarehouse(const std::string& name) const;
 
     void printVehicles() const;
     void printWarehouses() const;

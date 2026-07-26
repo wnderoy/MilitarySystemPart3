@@ -1,3 +1,10 @@
+Part 3: 
+ - we mooved from char* into Strings
+ - insted of raw arrays using pointers, we now use Vectors
+ - manual memory managment is gone thanks to vectors
+
+additinaly, after review with Keren, we fixed const methods returning pointers, and we now return const refrense.
+
 ניתוח אופציות:
 Military System:
  - ​	The biggest project containing a wide variety of classes.
@@ -32,7 +39,3 @@ Wearhouse: we are agian in a simular decision to the one it Truck: should capaci
 thuse we change the header a bit
 
 added cout <<, but kept print beacuse it was in the header file.
-
-main:
-replaced some of the prints with <<. 
-in 

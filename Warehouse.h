@@ -1,33 +1,32 @@
 #ifndef WAREHOUSE_H
 #define WAREHOUSE_H
 
+#include <string>
+#include <vector>
+
 class Equipment;
 
 class Warehouse {
 private:
-    char* name;
-
-    Equipment** equipmentList;
-    int count;
-    int capacity;
+    std::string name;
+    std::vector<Equipment*> equipmentList;
 
 public:
-    Warehouse(const char* name,int capacity=100);
+    Warehouse(const std::string& name);
     ~Warehouse();
 
     Warehouse(const Warehouse& other) = delete;
     Warehouse& operator=(const Warehouse& other) = delete;
 
-    const char* getName() const;
+    const std::string& getName() const;
     int         getEquipmentCount() const;
     Equipment*  getEquipment(int index) const;
 
-    bool setName(const char* name);
+    bool setName(const std::string& name);
 
-    bool       addEquipment(Equipment* equipment);
-    Equipment* searchEquipment(const char* name) const;
+    bool       addEquipment(Equipment& equipment);
+    Equipment* searchEquipment(const std::string& name) const;
     void       printEquipment() const;
-
 
     friend std::ostream& operator<<(std::ostream& os, const Warehouse& wh);
 };

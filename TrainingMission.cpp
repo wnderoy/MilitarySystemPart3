@@ -3,7 +3,7 @@
 #include "Unit.h"
 using namespace std;
 
-TrainingMission::TrainingMission(const char *missionName,
+TrainingMission::TrainingMission(const string &missionName,
                                  Unit *assignedUnit,
                                  eTrainingType trainingType,
                                  eDifficultyLevel difficultyLevel)
@@ -19,12 +19,12 @@ TrainingMission::eDifficultyLevel TrainingMission::getDifficultyLevel() const {
 };
 
 bool TrainingMission::setTrainingType(TrainingMission::eTrainingType trainingType) {
-    trainingType = trainingType;
+    this->trainingType = trainingType;
     return true;
 }
 
 bool TrainingMission::setDifficultyLevel(TrainingMission::eDifficultyLevel difficultyLevel) {
-    difficultyLevel = difficultyLevel;
+    this->difficultyLevel = difficultyLevel;
     return true;
 }
 
